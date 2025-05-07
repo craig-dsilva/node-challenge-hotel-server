@@ -16,7 +16,7 @@ jobs:
       - name: AWS Login
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_KEY_ID }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Whitelist runner IP in EC2 security group
@@ -30,4 +30,4 @@ jobs:
           script: bash server.sh
       - name: Revoke IP from EC2 security group
         if: always()
-        run: aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_RDS_SG }} --protocol tcp --port 5432 --cidr "$(curl https://checkip.amazonaws.com/)/24"
+        run: aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG }} --protocol tcp --port 5432 --cidr "$(curl https://checkip.amazonaws.com/)/24"
