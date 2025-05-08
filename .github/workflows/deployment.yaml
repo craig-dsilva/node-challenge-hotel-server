@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
 
 jobs:
   deploy:
@@ -27,7 +24,7 @@ jobs:
           host: ${{ secrets.HOST_IP }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script_path: node-challenge-hotel-server/server.sh
+          script: bash server.sh
           timeout: 300s
       - name: Revoke IP from EC2 security group
         if: always()
