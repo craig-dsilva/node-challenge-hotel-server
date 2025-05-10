@@ -1,4 +1,4 @@
-FROM node20-alpine
+FROM node:20-alpine
 
 COPY . .
 
