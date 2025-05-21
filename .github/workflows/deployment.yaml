@@ -32,7 +32,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Whitelist runner IP in EC2 security group
-        run: aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG }} --protocol tcp --port 22 --cidr "$(curl https://checkip.amazonaws.com/)/24"
+        run: aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG }} --protocol tcp --port 22 --cidr "$(curl https://checkip.amazonaws.com/)/32"
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@v1.2.2
         with:
@@ -43,4 +43,4 @@ jobs:
           timeout: 300s
       - name: Revoke IP from EC2 security group
         if: always()
-        run: aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG }} --protocol tcp --port 22 --cidr "$(curl https://checkip.amazonaws.com/)/24"
+        run: aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_EC2_SG }} --protocol tcp --port 22 --cidr "$(curl https://checkip.amazonaws.com/)/32"
