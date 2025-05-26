@@ -2,11 +2,26 @@ const express = require("express");
 const cors = require("cors");
 const moment = require("moment");
 const emailValidator = require("email-validator");
+const { Client, DatabaseError } = require("pg");
+require("dotenv").config();
 
 const app = express();
+const client = new Client({
+  user: process.env.DB_USER,
+  host: process.env.HOST,
+  password: process.env.PASSWORD,
+  port: process.env.DB_PORT,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
 app.use(express.json());
 app.use(cors());
+client
+  .connect()
+  .then(() => console.log("Connected to Database"))
+  .catch((err) => console.error(`Database connection error: ${err}`));
 
 const PORT = process.env.PORT || 3001;
 

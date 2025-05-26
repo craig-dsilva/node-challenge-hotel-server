@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "email-validator": "^2.0.4",
     "express": "^4.16.4",
-    "moment": "^2.29.3"
+    "moment": "^2.29.3",
+    "pg": "^8.16.0"
   },
   "engines": {
     "node": "8.x"
